@@ -1,0 +1,123 @@
+2026-06-10 10:53:47 [INFO]服务器启动 端口=8080
+2026-06-10 10:54:00 [INFO]新连接 fd=7
+2026-06-10 10:54:00 [INFO]请求完整 fd=7 GET /
+2026-06-10 10:54:00 [INFO][worker] 拼好响应 fd=7 len=618
+2026-06-10 10:54:00 [INFO]开始发送 fd=7 响应长度=618
+2026-06-10 10:54:00 [INFO]发完 fd=7
+2026-06-10 10:54:00 [INFO]新连接 fd=7
+2026-06-10 10:54:00 [INFO]请求完整 fd=7 GET /css/style.css
+2026-06-10 10:54:00 [INFO][worker] 拼好响应 fd=7 len=336
+2026-06-10 10:54:00 [INFO]开始发送 fd=7 响应长度=336
+2026-06-10 10:54:00 [INFO]发完 fd=7
+2026-06-10 10:54:00 [INFO]新连接 fd=7
+2026-06-10 10:54:00 [INFO]请求完整 fd=7 GET /favicon.ico
+2026-06-10 10:54:00 [INFO][worker] 拼好响应 fd=7 len=141
+2026-06-10 10:54:00 [INFO]开始发送 fd=7 响应长度=141
+2026-06-10 10:54:00 [INFO]发完 fd=7
+2026-06-10 10:54:32 [INFO]新连接 fd=7
+2026-06-10 10:54:32 [INFO]请求完整 fd=7 GET /echo
+2026-06-10 10:54:32 [INFO][worker] 拼好响应 fd=7 len=1182
+2026-06-10 10:54:32 [INFO]开始发送 fd=7 响应长度=1182
+2026-06-10 10:54:32 [INFO]发完 fd=7
+2026-06-10 10:54:32 [INFO]新连接 fd=7
+2026-06-10 10:54:32 [INFO]请求完整 fd=7 GET /css/style.css
+2026-06-10 10:54:32 [INFO][worker] 拼好响应 fd=7 len=336
+2026-06-10 10:54:32 [INFO]开始发送 fd=7 响应长度=336
+2026-06-10 10:54:32 [INFO]发完 fd=7
+2026-06-10 10:54:36 [INFO]新连接 fd=7
+2026-06-10 10:54:36 [INFO]请求完整 fd=7 POST /echo
+2026-06-10 10:54:36 [INFO][worker] 拼好响应 fd=7 len=197
+2026-06-10 10:54:36 [INFO]开始发送 fd=7 响应长度=197
+2026-06-10 10:54:36 [INFO]发完 fd=7
+2026-06-10 10:54:47 [INFO]新连接 fd=7
+2026-06-10 10:54:47 [INFO]请求完整 fd=7 GET /echo
+2026-06-10 10:54:47 [INFO][worker] 拼好响应 fd=7 len=1182
+2026-06-10 10:54:47 [INFO]开始发送 fd=7 响应长度=1182
+2026-06-10 10:54:47 [INFO]发完 fd=7
+2026-06-10 10:54:48 [INFO]新连接 fd=7
+2026-06-10 10:54:48 [INFO]请求完整 fd=7 GET /
+2026-06-10 10:54:48 [INFO][worker] 拼好响应 fd=7 len=618
+2026-06-10 10:54:48 [INFO]开始发送 fd=7 响应长度=618
+2026-06-10 10:54:48 [INFO]发完 fd=7
+2026-06-10 10:54:48 [INFO]新连接 fd=7
+2026-06-10 10:54:48 [INFO]请求完整 fd=7 GET /css/style.css
+2026-06-10 10:54:48 [INFO][worker] 拼好响应 fd=7 len=336
+2026-06-10 10:54:48 [INFO]开始发送 fd=7 响应长度=336
+2026-06-10 10:54:48 [INFO]发完 fd=7
+2026-06-10 10:55:07 [INFO]新连接 fd=7
+2026-06-10 10:55:07 [INFO]请求完整 fd=7 GET /big.bin
+2026-06-10 10:55:07 [INFO][worker] 拼好响应 fd=7 len=5242983
+2026-06-10 10:55:07 [INFO]开始发送 fd=7 响应长度=5242983
+2026-06-10 10:55:07 [INFO]发完 fd=7
+2026-06-10 14:48:14 [INFO] MySQL 连接池就绪 size=8
+2026-06-10 14:48:14 [INFO] Step10 MySQL 服务器启动
+2026-06-10 14:48:22 [INFO] 请求完整 GET /
+2026-06-10 14:48:22 [INFO] 请求完整 GET /css/style.css
+2026-06-10 14:48:30 [INFO] 请求完整 GET /register.html
+2026-06-10 14:48:30 [INFO] 请求完整 GET /css/style.css
+2026-06-10 14:48:38 [INFO] 请求完整 POST /register
+2026-06-10 14:48:38 [WARN] 注册失败: Unknown column 'passwd' in 'field list'
+2026-06-10 14:48:38 [INFO] 请求完整 GET /register_error.html
+2026-06-10 14:48:38 [INFO] 请求完整 GET /css/style.css
+2026-06-10 14:48:43 [INFO] 请求完整 GET /register.html
+2026-06-10 14:48:43 [INFO] 请求完整 GET /css/style.css
+2026-06-10 14:48:55 [INFO] 请求完整 POST /register
+2026-06-10 14:48:55 [WARN] 注册失败: Unknown column 'passwd' in 'field list'
+2026-06-10 14:48:55 [INFO] 请求完整 GET /register_error.html
+2026-06-10 14:48:55 [INFO] 请求完整 GET /css/style.css
+2026-06-10 14:48:59 [INFO] 请求完整 GET /register.html
+2026-06-10 14:48:59 [INFO] 请求完整 GET /css/style.css
+2026-06-10 14:49:29 [INFO] 请求完整 POST /register
+2026-06-10 14:49:29 [WARN] 注册失败: Unknown column 'passwd' in 'field list'
+2026-06-10 14:49:29 [INFO] 请求完整 GET /register_error.html
+2026-06-10 14:49:29 [INFO] 请求完整 GET /css/style.css
+2026-06-10 14:49:30 [INFO] 请求完整 GET /register.html
+2026-06-10 14:49:30 [INFO] 请求完整 GET /css/style.css
+2026-06-10 14:49:33 [INFO] 请求完整 GET /log.html
+2026-06-10 14:49:33 [INFO] 请求完整 GET /css/style.css
+2026-06-10 14:49:38 [INFO] 请求完整 POST /login
+2026-06-10 14:49:38 [ERROR] 登录查询失败: Unknown column 'passwd' in 'field list'
+2026-06-10 14:49:38 [INFO] 请求完整 GET /login_error.html
+2026-06-10 14:49:38 [INFO] 请求完整 GET /css/style.css
+2026-06-10 14:49:39 [INFO] 请求完整 GET /log.html
+2026-06-10 14:49:39 [INFO] 请求完整 GET /css/style.css
+2026-06-10 14:49:43 [INFO] 请求完整 POST /login
+2026-06-10 14:49:43 [ERROR] 登录查询失败: Unknown column 'passwd' in 'field list'
+2026-06-10 14:49:43 [INFO] 请求完整 GET /login_error.html
+2026-06-10 14:49:43 [INFO] 请求完整 GET /css/style.css
+2026-06-10 14:49:44 [INFO] 请求完整 GET /log.html
+2026-06-10 14:49:44 [INFO] 请求完整 GET /css/style.css
+2026-06-10 15:04:29 [INFO] MySQL 连接池就绪 size=8
+2026-06-10 15:04:29 [INFO] Step10 MySQL 服务器启动
+2026-06-10 15:04:31 [INFO] 请求完整 GET /log.html
+2026-06-10 15:04:31 [INFO] 请求完整 GET /css/style.css
+2026-06-10 15:04:36 [INFO] 请求完整 POST /login
+2026-06-10 15:04:36 [WARN] 登录失败 user=test
+2026-06-10 15:04:36 [INFO] 请求完整 GET /login_error.html
+2026-06-10 15:04:36 [INFO] 请求完整 GET /css/style.css
+2026-06-10 15:04:56 [INFO] 请求完整 GET /log.html
+2026-06-10 15:04:56 [INFO] 请求完整 GET /css/style.css
+2026-06-10 15:05:10 [INFO] 请求完整 POST /login
+2026-06-10 15:05:10 [WARN] 登录失败 user=test
+2026-06-10 15:05:10 [INFO] 请求完整 GET /login_error.html
+2026-06-10 15:05:11 [INFO] 请求完整 GET /css/style.css
+2026-06-10 15:07:31 [INFO] 请求完整 GET /log.html
+2026-06-10 15:07:31 [INFO] 请求完整 GET /css/style.css
+2026-06-10 15:07:32 [INFO] 请求完整 GET /register.html
+2026-06-10 15:07:32 [INFO] 请求完整 GET /css/style.css
+2026-06-10 15:07:37 [INFO] 请求完整 POST /register
+2026-06-10 15:07:37 [INFO] 注册成功 user=test
+2026-06-10 15:07:37 [INFO] 请求完整 GET /welcome.html
+2026-06-10 15:07:37 [INFO] 请求完整 GET /css/style.css
+2026-06-10 15:07:38 [INFO] 请求完整 GET /
+2026-06-10 15:07:38 [INFO] 请求完整 GET /css/style.css
+2026-06-10 15:07:39 [INFO] 请求完整 GET /log.html
+2026-06-10 15:07:39 [INFO] 请求完整 GET /css/style.css
+2026-06-10 15:07:44 [INFO] 请求完整 POST /login
+2026-06-10 15:07:44 [INFO] 登录成功 user=test
+2026-06-10 15:07:44 [INFO] 请求完整 GET /welcome.html
+2026-06-10 15:07:44 [INFO] 请求完整 GET /css/style.css
+2026-06-10 15:07:45 [INFO] 请求完整 GET /
+2026-06-10 15:07:45 [INFO] 请求完整 GET /css/style.css
+2026-06-11 11:05:13 [INFO] MySQL 连接池就绪 size=8
+2026-06-11 11:05:13 [INFO] Step11 服务器启动

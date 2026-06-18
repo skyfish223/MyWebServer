@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>POST /echo 测试</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>POST /echo 测试页</h1>
+  <p>
+    在地址栏输入 <code>/echo</code> 时，浏览器发的是 <strong>GET</strong>，服务器会返回本页面。
+    提交下面表单时发的是 <strong>POST</strong>，服务器会把正文原样回显。
+  </p>
+
+  <form action="/echo" method="post">
+    <p>
+      <label for="msg">消息：</label><br>
+      <input id="msg" name="msg" type="text" value="hello=world" style="width:100%;max-width:400px;padding:0.4em;">
+    </p>
+    <p>
+      <label for="note">备注：</label><br>
+      <textarea id="note" name="note" rows="3" style="width:100%;max-width:400px;">Step6 状态机 POST 测试</textarea>
+    </p>
+    <button type="submit">POST 到 /echo</button>
+  </form>
+
+  <p><small>也可用命令行：<code>curl -X POST http://127.0.0.1:8080/echo -d "a=b"</code></small></p>
+  <p><a href="/">返回首页</a></p>
+</body>
+</html>
