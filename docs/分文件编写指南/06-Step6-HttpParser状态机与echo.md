@@ -565,14 +565,9 @@ void modFd(int epfd, int fd, uint32_t events) {
 void removeFd(int epfd, int fd) {
     epoll_ctl(epfd, EPOLL_CTL_DEL, fd, nullptr);
 }
-
-void closeConnection(int epfd, int fd,
-                     std::unordered_map<int, HttpConnection>& connections) {
-    removeFd(epfd, fd);
-    close(fd);
-    connections.erase(fd);
-}
 ```
+
+> **Step7 预告：** Step6 把 `closeConnection` 放在 `EpollHelper` 是为了先跑通状态机。进入 [Step7](./07-Step7-定时器.md) 时，要把这里的 **声明和实现删掉**，改在 `HttpConnection.cpp` 里实现（带 `find` 防重复 close）。**不要两个文件各写一份**，否则链接报 `multiple definition of closeConnection`。
 
 ### 4.13 `src/HttpConnection.cpp`
 
@@ -1079,7 +1074,7 @@ POST 请求应打印 `body_len=...`。
 | `get_line` / `process_read` / `append_read` | `HttpParser.cpp` | 解析模块 |
 | `class HttpConnection` | `HttpConnection.h` | 连接状态 |
 | `handle_read` | `HttpConnection.cpp` | I/O + 调度 |
-| `closeConnection` | `EpollHelper.cpp` | 关闭辅助 |
+| `closeConnection` | `EpollHelper.cpp`（Step6）；Step7 起迁至 `HttpConnection.cpp` | 关闭辅助 |
 | `do_request` / `buildPostEchoResponse` | `HttpHandler.cpp` | 业务路由 |
 | `MAX_BODY_SIZE` 常量 | `g_cfg.max_body_size` | 配置化 |
 | `parseRequestLine`（旧） | 被 `parse_request_line` 取代 | 状态机内使用 |

@@ -1,27 +1,23 @@
 CXX      = g++
-CXXFLAGS = -std=c++17 -Wall -Isrc -pthread
-LDFLAGS  = -pthread
-
-TARGET = server
+CXXFLAGS = -std=c++17 -Wall -pthread -Isrc
+LDFLAGS  = -lmysqlclient -pthread
 
 SRCS = src/main.cpp \
        src/ServerConfig.cpp \
+       src/Log.cpp \
+       src/ThreadPool.cpp \
        src/HttpParser.cpp \
        src/HttpResponse.cpp \
        src/HttpHandler.cpp \
-       src/EpollHelper.cpp \
        src/HttpConnection.cpp \
-       src/ThreadPool.cpp
+       src/EpollHelper.cpp \
+       src/SqlPool.cpp \
+       src/FormParser.cpp
 
-OBJS = $(SRCS:.cpp=.o)
-
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
-
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+server: $(SRCS)
+	$(CXX) $(CXXFLAGS) -o server $(SRCS) $(LDFLAGS)
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f server
 
-.PHONY: clean
+.PHONY: clean server

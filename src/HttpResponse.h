@@ -14,3 +14,5 @@ bool isPathSafe(const std::string& urlPath);
 std::string getContentType(const std::string& filePath);
 
 bool readFile(const std::string& filePath, std::string& out);
+
+std::string buildRedirectResponse(const std::string& location);

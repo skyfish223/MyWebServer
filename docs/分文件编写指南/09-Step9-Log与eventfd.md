@@ -215,6 +215,11 @@ extern ServerConfig g_cfg;
 #pragma once
 
 #include <string>
+#include <fstream>
+#include <queue>
+#include <mutex>
+#include <condition_variable>
+#include <thread>
 
 enum class LogLevel { Debug, Info, Warn, Error };
 

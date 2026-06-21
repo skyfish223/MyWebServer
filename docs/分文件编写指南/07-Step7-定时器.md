@@ -53,7 +53,7 @@ MyWebServer/
 │   ├── HttpTypes.h              ← 本步无新枚举
 │   ├── HttpConnection.h         ← last_active_、refresh_active、is_expired
 │   ├── HttpConnection.cpp       ← tick_expired、closeConnection、handle_read 小改
-│   ├── EpollHelper.h / .cpp     ← 不变（closeConnection 放 HttpConnection.cpp）
+│   ├── EpollHelper.h / .cpp     ← **删除** Step6 的 closeConnection（改放 HttpConnection.cpp）
 │   ├── HttpParser.*
 │   ├── HttpHandler.*
 │   ├── HttpResponse.*
@@ -169,7 +169,28 @@ int conn_timeout_sec = 15;   // 非活跃超时（秒），自测可改成 5
 | `refresh_active()` | `append_read` 成功读到字节后 |
 | `is_expired(timeout)` | `tick_expired_connections` 扫描时 |
 
-### 2.4 新增 / 改造函数（均在 `HttpConnection.cpp`）
+### 2.4 从 EpollHelper **移除** closeConnection（Step6 → Step7 必做）
+
+Step6 在 `EpollHelper.h/.cpp` 里已有 `closeConnection`。Step7 **不是新增第二份**，而是**搬家**：
+
+| 文件 | Step7 操作 |
+|------|-----------|
+| `EpollHelper.h` | **删除** `closeConnection` 声明，以及仅为它服务的 `#include <unordered_map>`、`class HttpConnection` |
+| `EpollHelper.cpp` | **删除** `closeConnection` 函数体；若不再用到可去掉 `#include "HttpConnection.h"` |
+| `HttpConnection.h` | **保留/添加** `closeConnection` 声明 |
+| `HttpConnection.cpp` | **保留/添加** `closeConnection` 实现（先 `find` 再关，见 §3.3） |
+
+`EpollHelper` Step7 终稿应只剩四个函数：
+
+```cpp
+// EpollHelper.h —— Step7 不应再出现 closeConnection
+void setNonBlocking(int fd);
+void addFd(int epfd, int fd, uint32_t events = 0x001);
+void modFd(int epfd, int fd, uint32_t events);
+void removeFd(int epfd, int fd);
+```
+
+### 2.5 新增 / 改造函数（均在 `HttpConnection.cpp`）
 
 | 函数 | 职责 |
 |------|------|
@@ -178,7 +199,7 @@ int conn_timeout_sec = 15;   // 非活跃超时（秒），自测可改成 5
 | **`handle_read`（小改）** | `append_read` 成功后 `conn.refresh_active()` |
 | **主循环** | 每轮事件处理完后调用 `tick` |
 
-### 2.5 线程安全
+### 2.6 线程安全
 
 | 线程 | 关「仍在 epoll 上」的 fd |
 |------|-------------------------|
@@ -633,6 +654,7 @@ make clean && make
 
 | 报错 | 原因 | 处理 |
 |------|------|------|
+| `multiple definition of closeConnection` | Step6 的 `EpollHelper.cpp` 与 Step7 的 `HttpConnection.cpp` **各有一份**实现 | 按 §2.4 **删掉 EpollHelper 里那份**，只留 `HttpConnection.cpp` |
 | `undefined reference to tick_expired_connections` | 函数只有声明无实现 | 检查 `HttpConnection.cpp` 是否加入 `SRCS` |
 | `'time_t' does not name a type` | 漏 `#include <ctime>` | 加到 `HttpConnection.h` |
 | `conn_timeout_sec` 未定义 | 漏改 `ServerConfig.h` | 增加字段并 `#include "ServerConfig.h"` |
@@ -703,10 +725,26 @@ nc 127.0.0.1 8080
 
 在 `HttpConnection.h` 或 `.cpp` 增加 `#include <ctime>`。
 
-### Q4：`closeConnection` 和 `EpollHelper` 里重复定义
+### Q4：`closeConnection` 和 `EpollHelper` 里重复定义（链接阶段）
 
-`closeConnection(epfd, fd, conns)` **带 map 参数**的版本只应存在于 `HttpConnection.cpp`。  
-`EpollHelper` 里若有简单版 `closeConnection(epfd, fd)`（无 map），不要与带 map 版本混用同一名字；推荐 Step4 起就把「带 map 的关闭」统一放在 `HttpConnection.cpp`。
+**典型报错：**
+
+```text
+multiple definition of `closeConnection(...)`;
+EpollHelper.o: first defined here
+HttpConnection.o: ... also defined here
+```
+
+**原因：** Step6 把 `closeConnection` 写在 `EpollHelper.cpp`；Step7 又在 `HttpConnection.cpp` 写了一份，**忘记删除旧的那份**。
+
+**处理（按顺序做）：**
+
+1. 打开 `EpollHelper.h`，删掉 `closeConnection` 那一行声明。
+2. 打开 `EpollHelper.cpp`，删掉整个 `closeConnection` 函数。
+3. 确认 `HttpConnection.h` 有声明、`HttpConnection.cpp` 有实现（带 `conns.find(fd)` 检查）。
+4. `make clean && make`。
+
+`closeConnection(epfd, fd, conns)` **全工程只能有一处定义**，放在 `HttpConnection.cpp`；`EpollHelper` 只提供 `removeFd`。
 
 ### Q5：与 step7.cpp 行为不一致
 
@@ -737,11 +775,12 @@ nc 127.0.0.1 8080
 
 **迁移步骤：**
 
+0. **从 `EpollHelper.h/.cpp` 删除 Step6 的 `closeConnection`**（见 §2.4，避免链接重复定义）。
 1. 从 [step7.cpp](../../Step1to6/step7.cpp) 复制 `last_active_`、`refresh_active`、`is_expired` 到 `HttpConnection.h`。
 2. 复制 `tick_expired_connections`、`closeConnection` 到 `HttpConnection.cpp`。
 3. 在 `handle_read` 的 `append_read` 后加 `refresh_active()`。
 4. 在 `main.cpp` 循环末尾加 `tick_expired_connections`。
-5. `make && ./server` 跑验收命令。
+5. `make clean && make && ./server` 跑验收命令。
 
 逻辑与单文件**完全一致**，只是物理文件不同。
 

@@ -316,6 +316,7 @@ void handle_read(int epfd, HttpConnection& conn, ThreadPool& pool,
 #include <iostream>
 #include <vector>
 #include <unistd.h>
+#include <sys/epoll.h>
 #include <cerrno>
 
 using namespace std;

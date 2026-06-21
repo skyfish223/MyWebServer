@@ -11,9 +11,9 @@ string buildHttpResponse(int statusCode,
                         const std::string& contentType,
                         const std::string& body)
 {
-    return "HTTP/1.1" + to_string(statusCode) + " " + statusText + "\r\n"
+    return "HTTP/1.1 " + to_string(statusCode) + " " + statusText + "\r\n"
             "Content-Type: " + contentType + "\r\n"
-            "Content_Length: " + to_string(body.size()) + "\r\n"
+            "Content-Length: " + to_string(body.size()) + "\r\n"
             "Connection: close\r\n"
             "\r\n" + 
             body;
@@ -25,6 +25,20 @@ string pathToFile(const string& urlPath)
     {
         return g_cfg.web_root + "/index.html";
     }
+    if(urlPath == "/echo" || urlPath == "/echo.html")
+    {
+        return g_cfg.web_root + "/echo.html";
+    }
+    if (urlPath == "/log" || urlPath == "/log.html")
+        return g_cfg.web_root + "/log.html";
+    if (urlPath == "/register" || urlPath == "/register.html")
+        return g_cfg.web_root + "/register.html";
+    if (urlPath == "/welcome" || urlPath == "/welcome.html")
+        return g_cfg.web_root + "/welcome.html";
+    if (urlPath == "/login_error.html")
+        return g_cfg.web_root + "/login_error.html";
+    if (urlPath == "/register_error.html")
+        return g_cfg.web_root + "/register_error.html";
     return g_cfg.web_root + urlPath;
 }
 
@@ -75,4 +89,11 @@ bool readFile(const string& filePath, string& out)
     }
     out.assign(istreambuf_iterator<char>(ifs), istreambuf_iterator<char>());
     return true;
+}
+
+string buildRedirectResponse(const string& location) {
+    return "HTTP/1.1 302 Found\r\n"
+           "Location: " + location + "\r\n"
+           "Content-Length: 0\r\n"
+           "Connection: close\r\n\r\n";
 }
